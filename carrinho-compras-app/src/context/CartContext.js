@@ -35,8 +35,29 @@ function CartProvider({ children }) {
 
     }
 
+    function removeItemCart(product){
+        const indexItem = cart.findIndex(item => item.id === product.id);
+
+        //Caso tenha mais de um item no carrinho subtrai um
+        if(cart[indexItem]?.amount > 1){
+            let cartList = cart;
+
+            cartList[indexItem].amount = cartList[indexItem].amount - 1;
+            cartList[indexItem].total = cartList[indexItem].total - cartList[indexItem].price;
+
+            setCart(cartList);
+            return;
+        }
+
+        /*retorna todos os itens menos o item com o id igual ao ser removido
+        para casos onde há apenas 1 item*/
+        const removeItem = cart.filter(item => item.id !== product.id);
+
+        setCart(removeItem);
+    }
+
     return(
-        <CartContext.Provider value={{cart, addItemCart}}>
+        <CartContext.Provider value={{cart, addItemCart, removeItemCart}}>
             {children}
             {/*Componentes a serem renderizados dentro do contexto */}
         </CartContext.Provider>

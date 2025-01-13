@@ -6,7 +6,7 @@ import CardItem from '../../components/CardItem/CardItem';
 
 export default function Cart() {
 
-    const { cart, addItemCart } = useContext(CartContext);
+    const { cart, addItemCart, removeItemCart } = useContext(CartContext);
     return(
         <View style={styles.container}>
             <FlatList
@@ -17,6 +17,7 @@ export default function Cart() {
                     <CardItem
                         data={item}
                         addAmount={() => addItemCart(item)}
+                        removeAmount={ () => removeItemCart(item)}
                     />
                 )}
             />
